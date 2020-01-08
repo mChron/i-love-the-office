@@ -6,7 +6,7 @@
           :alt="'image of ' + altText"
       />
       <div class="card-body">
-          </slot>
+          <slot></slot>
       </div>
   </div>
 </template>
