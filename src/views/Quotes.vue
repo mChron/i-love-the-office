@@ -17,26 +17,16 @@
         <div class="row row-cols-3 row-cols-md-2">
             <!-- Challenge 1 - Add quote snippet here -->
             <div v-for="quote in characterQuotes" :key="quote.id" class="col mb-4">
-                <card :img-src="quote.character.image" :img-alt="'image of ' + quote.character.name" img-direction="left">
-                    <p class="card-text">{{quote.quote}}</p>
-                    <p class="card-text text-right font-italic">
-                        - {{quote.character.name}}
-                    </p>
-                    <p class="card-text text-right">
-                        <!-- Challenge 2 - Add favorite toggle here -->
-                        <button
-                            class="btn btn-default btn-sm"
-                            v-b-tooltip.hover
-                            title="like"
-                            style="font-size: 1.5rem;"
-                            v-on:click="fav(quote.id)"
-                        >
-                            <span class="sr-only">like</span>
-                            <i v-if="!quote.isFavorite" class="far fa-heart"></i>
-                            <i v-else="quote.isFavorite" class="fas fa-heart text-danger"></i>
-                        </button>
-                    </p>
-                </card>
+                <quote :img-src="quote.character.image"
+                    :character-name="quote.character.name"
+                    :favorite="quote.isFavorite"
+                    :quote-id="quote.id"
+                    :quote="quote.quote"
+                    @favorite-clicked="fav">
+                </quote>
+            </div>
+            <div>
+              <quote></quote>
             </div>
         <!-- Challenge 7 - Add modal to create new quote here -->
         </div>
@@ -47,6 +37,7 @@
     import characters from '../data/characters';
     import quotes from '../data/quotes';
     import Card from '../components/Card';
+    import Quote from '../components/Quote';
     export default {
         name: "quotes",
         data() {
@@ -57,7 +48,8 @@
             }
         },
         components: {
-            Card: Card
+            Card: Card,
+            Quote: Quote
         },
         // you should avoid updating computed values
         computed: {
